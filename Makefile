@@ -1,2 +1,2 @@
 dev:
-	pnpm run dev -o
+	pnpm run dev

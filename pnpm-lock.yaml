@@ -6,7 +6,6 @@ specifiers:
   '@nuxtjs/supabase': ^0.3.0
   '@nuxtjs/tailwindcss': ^6.1.3
   nuxt: 3.0.0
-  nuxt-headlessui: ^1.0.4
   nuxt-icon: ^0.1.8
 
 devDependencies:
@@ -15,7 +14,6 @@ devDependencies:
   '@nuxtjs/supabase': 0.3.0
   '@nuxtjs/tailwindcss': 6.1.3
   nuxt: 3.0.0
-  nuxt-headlessui: 1.0.4
   nuxt-icon: 0.1.8
 
 packages:
@@ -351,13 +349,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@headlessui/vue/1.7.7:
-    resolution: {integrity: sha512-dkdNhJkxyT9rXW5fHx/MkKaM3U13P3duYuwoGTRmDGjE7xAsvcWOSJRJpw1AmCQTvjZF44bh2wSlySLaHW+WuQ==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      vue: ^3.2.0
-    dev: true
 
   /@iconify/types/2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -3899,18 +3890,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
-
-  /nuxt-headlessui/1.0.4:
-    resolution: {integrity: sha512-DvmfZqDInDyvBnldf54XIShZVOmKA7SFtIxWQNOORwghDijQxqxkDLw+2BCw/otXf/xE815/7su895edeVsSeA==}
-    dependencies:
-      '@headlessui/vue': 1.7.7
-      '@nuxt/kit': 3.0.0
-      pathe: 1.0.0
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
-      - vue
     dev: true
 
   /nuxt-icon/0.1.8:

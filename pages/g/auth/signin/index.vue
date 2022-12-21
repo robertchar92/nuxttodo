@@ -1,25 +1,21 @@
 <template>
   <div>
-    <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <img
-          class="mx-auto h-12 w-auto"
+          class="w-auto h-12 mx-auto"
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
           alt="Your Company"
         />
-        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          Sign in to your account
+        <h2
+          class="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900"
+        >
+          Sign In
         </h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-          Or
-          <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"
-            >start your 14-day free trial</a
-          >
-        </p>
       </div>
 
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
           <form class="space-y-6" action="#" method="POST">
             <div>
               <label for="email" class="block text-sm font-medium text-gray-700"
@@ -32,13 +28,15 @@
                   type="email"
                   autocomplete="email"
                   required
-                  class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label for="password" class="block text-sm font-medium text-gray-700"
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700"
                 >Password</label
               >
               <div class="mt-1">
@@ -48,7 +46,7 @@
                   type="password"
                   autocomplete="current-password"
                   required
-                  class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
             </div>
@@ -59,15 +57,19 @@
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                 />
-                <label for="remember-me" class="ml-2 block text-sm text-gray-900"
+                <label
+                  for="remember-me"
+                  class="block ml-2 text-sm text-gray-900"
                   >Remember me</label
                 >
               </div>
 
               <div class="text-sm">
-                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"
+                <a
+                  href="#"
+                  class="font-medium text-indigo-600 hover:text-indigo-500"
                   >Forgot your password?</a
                 >
               </div>
@@ -76,7 +78,7 @@
             <div>
               <button
                 type="submit"
-                class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Sign in
               </button>
@@ -89,19 +91,21 @@
                 <div class="w-full border-t border-gray-300"></div>
               </div>
               <div class="relative flex justify-center text-sm">
-                <span class="bg-white px-2 text-gray-500">Or continue with</span>
+                <span class="px-2 text-gray-500 bg-white"
+                  >Or continue with</span
+                >
               </div>
             </div>
 
-            <div class="mt-6 grid grid-cols-3 gap-3">
+            <div class="grid grid-cols-3 gap-3 mt-6">
               <div>
                 <a
                   href="#"
-                  class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
+                  class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
                 >
                   <span class="sr-only">Sign in with Facebook</span>
                   <svg
-                    class="h-5 w-5"
+                    class="w-5 h-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     aria-hidden="true"
@@ -118,11 +122,11 @@
               <div>
                 <a
                   href="#"
-                  class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
+                  class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
                 >
                   <span class="sr-only">Sign in with Twitter</span>
                   <svg
-                    class="h-5 w-5"
+                    class="w-5 h-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     aria-hidden="true"
@@ -137,11 +141,11 @@
               <div>
                 <a
                   href="#"
-                  class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
+                  class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
                 >
                   <span class="sr-only">Sign in with GitHub</span>
                   <svg
-                    class="h-5 w-5"
+                    class="w-5 h-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     aria-hidden="true"
