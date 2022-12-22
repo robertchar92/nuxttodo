@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxtjs/supabase"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "nuxt-icon",
+    "@nuxtjs/supabase",
+    "@morev/vue-transitions/nuxt",
+  ],
   buildModules: ["@nuxtjs/google-fonts"],
   googleFonts: {
     families: {

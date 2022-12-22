@@ -15,6 +15,7 @@ const submitSignIn = async () => {
     router.push("/");
   } catch (error) {
     $showToast(error.message, "error", 5000);
+    input.password = "";
   }
 };
 </script>

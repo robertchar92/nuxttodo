@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { signUp } = useAuth();
+const { signUp, signOut } = useAuth();
 const input = reactive({
   email: "",
   password: "",
@@ -10,6 +10,7 @@ const submitSignUp = async () => {
 
   try {
     await signUp({ email: input.email, password: input.password });
+    await signOut();
     $showToast("Sign Up is successfull!", "success", 5000);
     input.email = "";
     input.password = "";

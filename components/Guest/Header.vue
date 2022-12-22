@@ -1,6 +1,24 @@
 <script setup lang="ts">
 import MazBtn from "maz-ui/components/MazBtn";
 const { isLoggedIn, signOut } = useAuth();
+const showUserMenu = ref(false);
+const showNavMenu = ref(false);
+
+const toggleUserMenu = () => {
+  showUserMenu.value = !showUserMenu.value;
+};
+
+const closeUserMenu = () => {
+  showUserMenu.value = false;
+};
+
+const toggleNavMenu = () => {
+  showNavMenu.value = !showNavMenu.value;
+};
+
+const closeNavMenu = () => {
+  showNavMenu.value = false;
+};
 </script>
 
 <template>
@@ -16,15 +34,9 @@ const { isLoggedIn, signOut } = useAuth();
                 class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
+                @click="toggleNavMenu"
+                v-click-outside="closeNavMenu"
               >
-                <span class="sr-only">Open main menu</span>
-                <!--
-            Icon when menu is closed.
-
-            Heroicon name: outline/bars-3
-
-            Menu open: "hidden", Menu closed: "block"
-          -->
                 <svg
                   class="block h-6 w-6"
                   xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +76,7 @@ const { isLoggedIn, signOut } = useAuth();
                 </svg>
               </button>
             </div>
+
             <div
               class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
             >
@@ -81,30 +94,17 @@ const { isLoggedIn, signOut } = useAuth();
               </div>
               <div class="hidden sm:ml-6 sm:block">
                 <div class="flex space-x-4">
-                  <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                   <a
                     href="#"
                     class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                     aria-current="page"
-                    >Dashboard</a
+                    >Ongoing Task</a
                   >
 
                   <a
                     href="#"
                     class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    >Team</a
-                  >
-
-                  <a
-                    href="#"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    >Projects</a
-                  >
-
-                  <a
-                    href="#"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    >Calendar</a
+                    >Completed Task</a
                   >
                 </div>
               </div>
@@ -117,48 +117,52 @@ const { isLoggedIn, signOut } = useAuth();
                 <div>
                   <button
                     type="button"
-                    class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    @click="toggleUserMenu"
+                    v-click-outside="closeUserMenu"
+                    class="flex rounded-full bg-gray-800 text-sm focus:outline-none"
                     id="user-menu-button"
                     aria-expanded="false"
                     aria-haspopup="true"
                   >
                     <span class="sr-only">Open user menu</span>
-                    <img
-                      class="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
+                    <Icon
+                      name="ph:user-circle-duotone"
+                      class="rounded-full text-white hover:text-blue-100 transition-all ease-in-out duration-500"
+                      size="2rem"
                     />
                   </button>
                 </div>
 
-                <div
-                  class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu-button"
-                  tabindex="-1"
-                >
-                  <!-- Active: "bg-gray-100", Not Active: "" -->
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
+                <TransitionSlide>
+                  <div
+                    class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu-button"
                     tabindex="-1"
-                    id="user-menu-item-0"
-                    >Your Profile</a
+                    v-if="showUserMenu"
                   >
+                    <a
+                      href="#"
+                      class="flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="user-menu-item-0"
+                      >Your Profile <Icon name="carbon:user-profile" class="text-black"
+                    /></a>
 
-                  <button
-                    type="button"
-                    @click="signOut"
-                    class="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                    tabindex="-1"
-                    id="user-menu-item-2"
-                  >
-                    Sign out
-                  </button>
-                </div>
+                    <div
+                      @click="signOut"
+                      class="flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 cursor-pointer"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="user-menu-item-2"
+                    >
+                      Sign out
+                      <Icon name="tabler:logout" class="text-black" />
+                    </div>
+                  </div>
+                </TransitionSlide>
               </div>
 
               <div class="ml-3 flex justify-between space-x-4" v-else>
@@ -175,36 +179,25 @@ const { isLoggedIn, signOut } = useAuth();
           </div>
         </div>
 
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="sm:hidden" id="mobile-menu">
-          <div class="space-y-1 px-2 pt-2 pb-3">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a
-              href="#"
-              class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-              aria-current="page"
-              >Dashboard</a
-            >
+        <TransitionExpand>
+          <div class="sm:hidden" id="mobile-menu" v-if="showNavMenu">
+            <div class="space-y-1 px-2 pt-2 pb-3">
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              <a
+                href="#"
+                class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                aria-current="page"
+                >Ongoing Task</a
+              >
 
-            <a
-              href="#"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >Team</a
-            >
-
-            <a
-              href="#"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >Projects</a
-            >
-
-            <a
-              href="#"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >Calendar</a
-            >
+              <a
+                href="#"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >Complete Task</a
+              >
+            </div>
           </div>
-        </div>
+        </TransitionExpand>
       </nav>
     </header>
   </div>
