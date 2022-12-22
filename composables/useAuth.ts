@@ -25,7 +25,7 @@ const useAuth = () => {
   };
 
   const signIn = async ({ email, password }) => {
-    const { user: u, error } = await supabase.auth.signIn({
+    const { user: u, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });

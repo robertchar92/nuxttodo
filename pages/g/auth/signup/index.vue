@@ -6,13 +6,15 @@ const input = reactive({
 });
 
 const submitSignUp = async () => {
+  const { $showToast } = useNuxtApp();
+
   try {
     await signUp({ email: input.email, password: input.password });
-
+    $showToast("Sign Up is successfull!", "success", 5000);
     input.email = "";
     input.password = "";
   } catch (error) {
-    alert(error);
+    $showToast(error.message, "error", 5000);
   }
 };
 </script>
@@ -20,8 +22,8 @@ const submitSignUp = async () => {
 <template>
   <div>
     <div>
-      <div class="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="flex flex-col justify-center min-h-full py-12 px-4 sm:px-6 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-lg">
           <img
             class="w-auto h-12 mx-auto"
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -32,7 +34,7 @@ const submitSignUp = async () => {
           </h2>
         </div>
 
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
           <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
             <form @submit.prevent="submitSignUp" class="space-y-6">
               <div>
@@ -66,6 +68,16 @@ const submitSignUp = async () => {
                     class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     v-model="input.password"
                   />
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <NuxtLink
+                    to="/g/auth/signin"
+                    class="font-medium text-indigo-600 hover:text-indigo-500 text-sm"
+                    >Already have account? Sign In here.</NuxtLink
+                  >
                 </div>
               </div>
 

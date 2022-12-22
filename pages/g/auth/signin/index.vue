@@ -1,22 +1,41 @@
+<script setup lang="ts">
+const { signIn } = useAuth();
+const input = reactive({
+  email: "",
+  password: "",
+});
+
+const router = useRouter();
+
+const submitSignIn = async () => {
+  const { $showToast } = useNuxtApp();
+
+  try {
+    await signIn({ email: input.email, password: input.password });
+    router.push("/");
+  } catch (error) {
+    $showToast(error.message, "error", 5000);
+  }
+};
+</script>
+
 <template>
   <div>
     <div class="flex flex-col justify-center min-h-full py-12 sm:px-6 lg:px-8">
-      <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="sm:mx-auto sm:w-full sm:max-w-lg">
         <img
           class="w-auto h-12 mx-auto"
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
           alt="Your Company"
         />
-        <h2
-          class="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900"
-        >
+        <h2 class="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900">
           Sign In
         </h2>
       </div>
 
-      <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
         <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-          <form class="space-y-6" action="#" method="POST">
+          <form class="space-y-6" @submit.prevent="submitSignIn">
             <div>
               <label for="email" class="block text-sm font-medium text-gray-700"
                 >Email address</label
@@ -29,14 +48,13 @@
                   autocomplete="email"
                   required
                   class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  v-model="input.email"
                 />
               </div>
             </div>
 
             <div>
-              <label
-                for="password"
-                class="block text-sm font-medium text-gray-700"
+              <label for="password" class="block text-sm font-medium text-gray-700"
                 >Password</label
               >
               <div class="mt-1">
@@ -47,30 +65,17 @@
                   autocomplete="current-password"
                   required
                   class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  v-model="input.password"
                 />
               </div>
             </div>
 
             <div class="flex items-center justify-between">
               <div class="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                />
-                <label
-                  for="remember-me"
-                  class="block ml-2 text-sm text-gray-900"
-                  >Remember me</label
-                >
-              </div>
-
-              <div class="text-sm">
-                <a
-                  href="#"
-                  class="font-medium text-indigo-600 hover:text-indigo-500"
-                  >Forgot your password?</a
+                <NuxtLink
+                  to="/g/auth/signup"
+                  class="font-medium text-indigo-600 hover:text-indigo-500 text-sm"
+                  >Don't have account? Sign Up Now.</NuxtLink
                 >
               </div>
             </div>
@@ -91,9 +96,7 @@
                 <div class="w-full border-t border-gray-300"></div>
               </div>
               <div class="relative flex justify-center text-sm">
-                <span class="px-2 text-gray-500 bg-white"
-                  >Or continue with</span
-                >
+                <span class="px-2 text-gray-500 bg-white">Or continue with</span>
               </div>
             </div>
 

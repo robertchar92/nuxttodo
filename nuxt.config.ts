@@ -11,5 +11,13 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ["@/assets/css/main.css"],
+  css: [
+    "@/assets/css/main.css",
+    "maz-ui/css/main.css",
+    "vue-toastification/dist/index.css",
+  ],
+  build: {
+    transpile: ["maz-ui"],
+  },
+  plugins: ["@/plugins/showToast.client.ts"],
 });
