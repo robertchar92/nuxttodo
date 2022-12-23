@@ -1,11 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["guest-auth"],
+  layout: "guest-default",
 });
 </script>
 
 <template>
-  <div>
-    <NuxtPage />
-  </div>
+  <div></div>
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import MazBtn from "maz-ui/components/MazBtn";
 const { isLoggedIn, signOut } = useAuth();
+
 const showUserMenu = ref(false);
 const showNavMenu = ref(false);
 
@@ -52,13 +53,7 @@ const closeNavMenu = () => {
                     d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                   />
                 </svg>
-                <!--
-            Icon when menu is open.
 
-            Heroicon name: outline/x-mark
-
-            Menu open: "block", Menu closed: "hidden"
-          -->
                 <svg
                   class="hidden h-6 w-6"
                   xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +75,7 @@ const closeNavMenu = () => {
             <div
               class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
             >
-              <div class="flex flex-shrink-0 items-center">
+              <NuxtLink to="/" class="flex flex-shrink-0 items-center">
                 <img
                   class="block h-8 w-auto lg:hidden"
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
@@ -91,21 +86,24 @@ const closeNavMenu = () => {
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                   alt="Your Company"
                 />
-              </div>
+              </NuxtLink>
+
               <div class="hidden sm:ml-6 sm:block">
                 <div class="flex space-x-4">
-                  <a
-                    href="#"
+                  <NuxtLink
+                    to="/g/user/ongoing"
                     class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                     aria-current="page"
-                    >Ongoing Task</a
                   >
+                    Ongoing Task
+                  </NuxtLink>
 
-                  <a
-                    href="#"
+                  <NuxtLink
+                    to="/g/user/complete"
                     class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                    >Completed Task</a
                   >
+                    Completed Task
+                  </NuxtLink>
                 </div>
               </div>
             </div>
@@ -183,18 +181,20 @@ const closeNavMenu = () => {
           <div class="sm:hidden" id="mobile-menu" v-if="showNavMenu">
             <div class="space-y-1 px-2 pt-2 pb-3">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <a
-                href="#"
+              <NuxtLink
+                to="/g/user/onoging"
                 class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
                 aria-current="page"
-                >Ongoing Task</a
               >
+                Ongoing Task
+              </NuxtLink>
 
-              <a
-                href="#"
+              <NuxtLink
+                href="/g/user/complete"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >Complete Task</a
               >
+                Complete Task
+              </NuxtLink>
             </div>
           </div>
         </TransitionExpand>

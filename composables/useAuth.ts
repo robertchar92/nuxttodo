@@ -1,10 +1,11 @@
 const useAuth = () => {
   const user = useState("user", () => null);
+  const userData = useSupabaseUser();
   const supabase = useSupabaseClient();
   const router = useRouter();
 
   supabase.auth.onAuthStateChange((e, session) => {
-    user.value = session?.user || null;
+    user.value = userData.value;
   });
 
   const signUp = async ({ email, password, ...metadata }) => {
@@ -15,7 +16,6 @@ const useAuth = () => {
       },
       {
         data: metadata,
-        redirectTo: `${window.location.origin}/g/auth/signin`,
       }
     );
 
@@ -40,7 +40,7 @@ const useAuth = () => {
 
     if (error) throw error;
 
-    router.push("/g/auth/signin");
+    router.go("/g/auth/signin");
   };
 
   const isLoggedIn = () => {

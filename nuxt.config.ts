@@ -5,6 +5,15 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxtjs/supabase",
     "@morev/vue-transitions/nuxt",
+    "@sidebase/nuxt-session",
+    [
+      "@pinia/nuxt",
+      {
+        autoImports: [
+          ["defineStore", "definePiniaStore"], // import { defineStore as definePiniaStore } from 'pinia'
+        ],
+      },
+    ],
   ],
   buildModules: ["@nuxtjs/google-fonts"],
   googleFonts: {
