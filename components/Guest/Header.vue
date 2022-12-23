@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import MazBtn from "maz-ui/components/MazBtn";
-const { isLoggedIn, signOut } = useAuth();
+import { useAuth } from "@/stores/auth";
+const auth = useAuth();
+
+// console.log(auth.user);
 
 const showUserMenu = ref(false);
 const showNavMenu = ref(false);
@@ -26,20 +29,20 @@ const closeNavMenu = () => {
   <div>
     <header class="bg-indigo-600">
       <nav class="bg-gray-800">
-        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div class="relative flex h-16 items-center justify-between">
+        <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div class="relative flex items-center justify-between h-16">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <!-- Mobile menu button-->
               <button
                 type="button"
-                class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
                 @click="toggleNavMenu"
                 v-click-outside="closeNavMenu"
               >
                 <svg
-                  class="block h-6 w-6"
+                  class="block w-6 h-6"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -55,7 +58,7 @@ const closeNavMenu = () => {
                 </svg>
 
                 <svg
-                  class="hidden h-6 w-6"
+                  class="hidden w-6 h-6"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -73,16 +76,16 @@ const closeNavMenu = () => {
             </div>
 
             <div
-              class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+              class="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start"
             >
-              <NuxtLink to="/" class="flex flex-shrink-0 items-center">
+              <NuxtLink to="/" class="flex items-center flex-shrink-0">
                 <img
-                  class="block h-8 w-auto lg:hidden"
+                  class="block w-auto h-8 lg:hidden"
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                   alt="Your Company"
                 />
                 <img
-                  class="hidden h-8 w-auto lg:block"
+                  class="hidden w-auto h-8 lg:block"
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                   alt="Your Company"
                 />
@@ -92,7 +95,7 @@ const closeNavMenu = () => {
                 <div class="flex space-x-4">
                   <NuxtLink
                     to="/g/user/ongoing"
-                    class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                    class="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-md"
                     aria-current="page"
                   >
                     Ongoing Task
@@ -100,7 +103,7 @@ const closeNavMenu = () => {
 
                   <NuxtLink
                     to="/g/user/complete"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
                   >
                     Completed Task
                   </NuxtLink>
@@ -111,13 +114,13 @@ const closeNavMenu = () => {
             <div
               class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
             >
-              <div class="relative ml-3" v-if="isLoggedIn()">
+              <div class="relative ml-3" v-if="auth.isLoggedIn()">
                 <div>
                   <button
                     type="button"
                     @click="toggleUserMenu"
                     v-click-outside="closeUserMenu"
-                    class="flex rounded-full bg-gray-800 text-sm focus:outline-none"
+                    class="flex text-sm bg-gray-800 rounded-full focus:outline-none"
                     id="user-menu-button"
                     aria-expanded="false"
                     aria-haspopup="true"
@@ -125,7 +128,7 @@ const closeNavMenu = () => {
                     <span class="sr-only">Open user menu</span>
                     <Icon
                       name="ph:user-circle-duotone"
-                      class="rounded-full text-white hover:text-blue-100 transition-all ease-in-out duration-500"
+                      class="text-white transition-all duration-500 ease-in-out rounded-full hover:text-blue-100"
                       size="2rem"
                     />
                   </button>
@@ -133,7 +136,7 @@ const closeNavMenu = () => {
 
                 <TransitionSlide>
                   <div
-                    class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="user-menu-button"
@@ -142,16 +145,17 @@ const closeNavMenu = () => {
                   >
                     <a
                       href="#"
-                      class="flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
+                      class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
                       role="menuitem"
                       tabindex="-1"
                       id="user-menu-item-0"
-                      >Your Profile <Icon name="carbon:user-profile" class="text-black"
+                      >Your Profile
+                      <Icon name="carbon:user-profile" class="text-black"
                     /></a>
 
                     <div
-                      @click="signOut"
-                      class="flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 cursor-pointer"
+                      @click="auth.signOut()"
+                      class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-300"
                       role="menuitem"
                       tabindex="-1"
                       id="user-menu-item-2"
@@ -163,14 +167,17 @@ const closeNavMenu = () => {
                 </TransitionSlide>
               </div>
 
-              <div class="ml-3 flex justify-between space-x-4" v-else>
+              <div class="flex justify-between ml-3 space-x-4" v-else>
                 <MazBtn to="/g/auth/signin" size="sm" color="white">
                   Sign In <Icon name="tabler:login" class="ml-2" />
                 </MazBtn>
 
                 <MazBtn to="/g/auth/signup" size="sm" color="primary">
                   Sign Up
-                  <Icon name="material-symbols:assignment-outline-sharp" class="ml-2" />
+                  <Icon
+                    name="material-symbols:assignment-outline-sharp"
+                    class="ml-2"
+                  />
                 </MazBtn>
               </div>
             </div>
@@ -179,11 +186,11 @@ const closeNavMenu = () => {
 
         <TransitionExpand>
           <div class="sm:hidden" id="mobile-menu" v-if="showNavMenu">
-            <div class="space-y-1 px-2 pt-2 pb-3">
+            <div class="px-2 pt-2 pb-3 space-y-1">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <NuxtLink
                 to="/g/user/onoging"
-                class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                class="block px-3 py-2 text-base font-medium text-white bg-gray-900 rounded-md"
                 aria-current="page"
               >
                 Ongoing Task
@@ -191,7 +198,7 @@ const closeNavMenu = () => {
 
               <NuxtLink
                 href="/g/user/complete"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
               >
                 Complete Task
               </NuxtLink>

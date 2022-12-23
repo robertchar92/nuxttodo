@@ -1,14 +1,16 @@
-const useAuth = () => {
-  const user = useState("user", () => null);
-  const userData = useSupabaseUser();
+import { skipHydrate } from "pinia";
+import { useLocalStorage } from "@vueuse/core";
+
+export const useAuth = definePiniaStore("auth", () => {
+  const user = useLocalStorage("user", null);
   const supabase = useSupabaseClient();
   const router = useRouter();
 
   supabase.auth.onAuthStateChange((e, session) => {
-    user.value = userData.value;
+    user.value = session?.user || null;
   });
 
-  const signUp = async ({ email, password, ...metadata }) => {
+  async function signUp(email, password, ...metadata) {
     const { user: u, error } = await supabase.auth.signUp(
       {
         email,
@@ -22,9 +24,9 @@ const useAuth = () => {
     if (error) throw error;
 
     return u;
-  };
+  }
 
-  const signIn = async ({ email, password }) => {
+  async function signIn(email, password) {
     const { user: u, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -33,27 +35,19 @@ const useAuth = () => {
     if (error) throw error;
 
     return u;
-  };
+  }
 
-  const signOut = async () => {
+  async function signOut() {
     const { error } = await supabase.auth.signOut();
 
     if (error) throw error;
 
-    router.go("/g/auth/signin");
-  };
+    return router.go("/g/auth/signin");
+  }
 
-  const isLoggedIn = () => {
+  function isLoggedIn() {
     return !!user.value;
-  };
+  }
 
-  return {
-    user,
-    signUp,
-    signIn,
-    signOut,
-    isLoggedIn,
-  };
-};
-
-export default useAuth;
+  return { user: skipHydrate(user), signIn, signUp, signOut, isLoggedIn };
+});

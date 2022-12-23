@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { signIn } = useAuth();
+import { useAuth } from "@/stores/auth";
+const auth = useAuth();
 const input = reactive({
   email: "",
   password: "",
@@ -11,7 +12,7 @@ const submitSignIn = async () => {
   const { $showToast } = useNuxtApp();
 
   try {
-    await signIn({ email: input.email, password: input.password });
+    await auth.signIn(input.email, input.password);
     router.push("/");
   } catch (error) {
     $showToast(error.message, "error", 5000);
@@ -29,7 +30,9 @@ const submitSignIn = async () => {
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
           alt="Your Company"
         />
-        <h2 class="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900">
+        <h2
+          class="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900"
+        >
           Sign In
         </h2>
       </div>
@@ -55,7 +58,9 @@ const submitSignIn = async () => {
             </div>
 
             <div>
-              <label for="password" class="block text-sm font-medium text-gray-700"
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700"
                 >Password</label
               >
               <div class="mt-1">
@@ -75,7 +80,7 @@ const submitSignIn = async () => {
               <div class="flex items-center">
                 <NuxtLink
                   to="/g/auth/signup"
-                  class="font-medium text-indigo-600 hover:text-indigo-500 text-sm"
+                  class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                   >Don't have account? Sign Up Now.</NuxtLink
                 >
               </div>
@@ -97,7 +102,9 @@ const submitSignIn = async () => {
                 <div class="w-full border-t border-gray-300"></div>
               </div>
               <div class="relative flex justify-center text-sm">
-                <span class="px-2 text-gray-500 bg-white">Or continue with</span>
+                <span class="px-2 text-gray-500 bg-white"
+                  >Or continue with</span
+                >
               </div>
             </div>
 
