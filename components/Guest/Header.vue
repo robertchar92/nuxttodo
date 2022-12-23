@@ -3,7 +3,7 @@ import MazBtn from "maz-ui/components/MazBtn";
 import { useAuth } from "@/stores/auth";
 const auth = useAuth();
 
-// console.log(auth.user);
+const route = await useRoute();
 
 const showUserMenu = ref(false);
 const showNavMenu = ref(false);
@@ -32,7 +32,6 @@ const closeNavMenu = () => {
         <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div class="relative flex items-center justify-between h-16">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-              <!-- Mobile menu button-->
               <button
                 type="button"
                 class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
@@ -92,18 +91,41 @@ const closeNavMenu = () => {
               </NuxtLink>
 
               <div class="hidden sm:ml-6 sm:block">
-                <div class="flex space-x-4">
+                <div
+                  class="flex space-x-4 text-gray-300 [&>a:hover]:bg-gray-900 [&>a:hover]:text-white"
+                >
                   <NuxtLink
-                    to="/g/user/ongoing"
-                    class="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-md"
-                    aria-current="page"
+                    to="/g/user/all-task"
+                    class="px-3 py-2 text-sm font-medium rounded-md"
+                    :class="
+                      route.path === '/g/user/all-task'
+                        ? 'bg-gray-900 text-white'
+                        : ''
+                    "
+                  >
+                    All Task
+                  </NuxtLink>
+
+                  <NuxtLink
+                    to="/g/user/ongoing-task"
+                    class="px-3 py-2 text-sm font-medium rounded-md"
+                    :class="
+                      route.path === '/g/user/ongoing-task'
+                        ? 'bg-gray-900 text-white'
+                        : ''
+                    "
                   >
                     Ongoing Task
                   </NuxtLink>
 
                   <NuxtLink
-                    to="/g/user/complete"
-                    class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                    to="/g/user/complete-task"
+                    class="px-3 py-2 text-sm font-medium rounded-md"
+                    :class="
+                      route.path === '/g/user/complete-task'
+                        ? 'bg-gray-900 text-white'
+                        : ''
+                    "
                   >
                     Completed Task
                   </NuxtLink>
@@ -112,7 +134,7 @@ const closeNavMenu = () => {
             </div>
 
             <div
-              class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+              class="relative inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
             >
               <div class="relative ml-3" v-if="auth.isLoggedIn()">
                 <div>
@@ -136,7 +158,7 @@ const closeNavMenu = () => {
 
                 <TransitionSlide>
                   <div
-                    class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="absolute right-0 top-[100%] z-10 w-48 py-1 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="user-menu-button"
@@ -167,7 +189,7 @@ const closeNavMenu = () => {
                 </TransitionSlide>
               </div>
 
-              <div class="flex justify-between ml-3 space-x-4" v-else>
+              <div class="relative flex justify-between ml-3 space-x-4" v-else>
                 <MazBtn to="/g/auth/signin" size="sm" color="white">
                   Sign In <Icon name="tabler:login" class="ml-2" />
                 </MazBtn>
@@ -186,19 +208,41 @@ const closeNavMenu = () => {
 
         <TransitionExpand>
           <div class="sm:hidden" id="mobile-menu" v-if="showNavMenu">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <div
+              class="px-2 pt-2 pb-3 space-y-1 text-gray-300 [&>a:hover]:bg-gray-900 [&>a:hover]:text-white"
+            >
               <NuxtLink
-                to="/g/user/onoging"
-                class="block px-3 py-2 text-base font-medium text-white bg-gray-900 rounded-md"
-                aria-current="page"
+                to="/g/user/all-task"
+                class="block px-3 py-2 text-base font-medium"
+                :class="
+                  route.path === '/g/user/all-task'
+                    ? 'bg-gray-900 text-white'
+                    : ''
+                "
+              >
+                All Task
+              </NuxtLink>
+
+              <NuxtLink
+                to="/g/user/ongoing-task"
+                class="block px-3 py-2 text-base font-medium"
+                :class="
+                  route.path === '/g/user/ongoing-task'
+                    ? 'bg-gray-900 text-white'
+                    : ''
+                "
               >
                 Ongoing Task
               </NuxtLink>
 
               <NuxtLink
-                href="/g/user/complete"
-                class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                href="/g/user/complete-task"
+                class="block px-3 py-2 text-base font-medium"
+                :class="
+                  route.path === '/g/user/complete-task'
+                    ? 'bg-gray-900 text-white'
+                    : ''
+                "
               >
                 Complete Task
               </NuxtLink>

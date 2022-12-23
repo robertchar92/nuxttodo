@@ -1,12 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "guest-default",
-  middleware: ["guest-role"],
 });
 </script>
 
 <template>
-  <div>
-    <!-- <GuestHeader /> -->
-  </div>
+  <div></div>
 </template>
