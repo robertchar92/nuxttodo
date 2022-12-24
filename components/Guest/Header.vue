@@ -23,6 +23,26 @@ const toggleNavMenu = () => {
 const closeNavMenu = () => {
   showNavMenu.value = false;
 };
+
+interface NavMenu {
+  path?: string;
+  name?: string;
+}
+
+const navMenus: Array<NavMenu> = [
+  {
+    path: "/g/user/all-task",
+    name: "All Task",
+  },
+  {
+    path: "/g/user/ongoing-task",
+    name: "Ongoing Task",
+  },
+  {
+    path: "/g/user/complete-task",
+    name: "Complete Task",
+  },
+];
 </script>
 
 <template>
@@ -95,39 +115,13 @@ const closeNavMenu = () => {
                   class="flex space-x-4 text-gray-300 [&>a:hover]:bg-gray-900 [&>a:hover]:text-white"
                 >
                   <NuxtLink
-                    to="/g/user/all-task"
+                    v-for="nav in navMenus"
+                    :key="nav.path"
+                    :to="nav.path"
                     class="px-3 py-2 text-sm font-medium rounded-md"
-                    :class="
-                      route.path === '/g/user/all-task'
-                        ? 'bg-gray-900 text-white'
-                        : ''
-                    "
+                    :class="route.path === nav.path ? 'bg-gray-900 text-white' : ''"
                   >
-                    All Task
-                  </NuxtLink>
-
-                  <NuxtLink
-                    to="/g/user/ongoing-task"
-                    class="px-3 py-2 text-sm font-medium rounded-md"
-                    :class="
-                      route.path === '/g/user/ongoing-task'
-                        ? 'bg-gray-900 text-white'
-                        : ''
-                    "
-                  >
-                    Ongoing Task
-                  </NuxtLink>
-
-                  <NuxtLink
-                    to="/g/user/complete-task"
-                    class="px-3 py-2 text-sm font-medium rounded-md"
-                    :class="
-                      route.path === '/g/user/complete-task'
-                        ? 'bg-gray-900 text-white'
-                        : ''
-                    "
-                  >
-                    Completed Task
+                    {{ nav.name }}
                   </NuxtLink>
                 </div>
               </div>
@@ -171,8 +165,7 @@ const closeNavMenu = () => {
                       role="menuitem"
                       tabindex="-1"
                       id="user-menu-item-0"
-                      >Your Profile
-                      <Icon name="carbon:user-profile" class="text-black"
+                      >Your Profile <Icon name="carbon:user-profile" class="text-black"
                     /></a>
 
                     <div
@@ -196,10 +189,7 @@ const closeNavMenu = () => {
 
                 <MazBtn to="/g/auth/signup" size="sm" color="primary">
                   Sign Up
-                  <Icon
-                    name="material-symbols:assignment-outline-sharp"
-                    class="ml-2"
-                  />
+                  <Icon name="material-symbols:assignment-outline-sharp" class="ml-2" />
                 </MazBtn>
               </div>
             </div>
@@ -212,39 +202,13 @@ const closeNavMenu = () => {
               class="px-2 pt-2 pb-3 space-y-1 text-gray-300 [&>a:hover]:bg-gray-900 [&>a:hover]:text-white"
             >
               <NuxtLink
-                to="/g/user/all-task"
+                v-for="nav in navMenus"
+                :key="nav.path"
+                :to="nav.path"
                 class="block px-3 py-2 text-base font-medium"
-                :class="
-                  route.path === '/g/user/all-task'
-                    ? 'bg-gray-900 text-white'
-                    : ''
-                "
+                :class="route.path === nav.path ? 'bg-gray-900 text-white' : ''"
               >
-                All Task
-              </NuxtLink>
-
-              <NuxtLink
-                to="/g/user/ongoing-task"
-                class="block px-3 py-2 text-base font-medium"
-                :class="
-                  route.path === '/g/user/ongoing-task'
-                    ? 'bg-gray-900 text-white'
-                    : ''
-                "
-              >
-                Ongoing Task
-              </NuxtLink>
-
-              <NuxtLink
-                href="/g/user/complete-task"
-                class="block px-3 py-2 text-base font-medium"
-                :class="
-                  route.path === '/g/user/complete-task'
-                    ? 'bg-gray-900 text-white'
-                    : ''
-                "
-              >
-                Complete Task
+                {{ nav.name }}
               </NuxtLink>
             </div>
           </div>
