@@ -1,0 +1,54 @@
+<script setup lang="ts">
+import MazBadge from "maz-ui/components/MazBadge";
+
+interface TaskCardProps {
+  id?: number;
+  title?: string;
+  description?: string;
+  status?: string;
+}
+
+const props = defineProps<TaskCardProps>();
+</script>
+
+<template>
+  <div class="col-span-1 bg-white rounded-lg shadow flex flex-col">
+    <div class="w-full px-6 pt-3">
+      <MazBadge
+        :color="status === 'complete' ? 'success' : 'warning'"
+        rounded-size="full"
+        size="0.8rem"
+        >{{ status }}</MazBadge
+      >
+    </div>
+
+    <div class="flex items-center justify-between w-full py-4 px-6 space-x-6">
+      <div class="flex-1">
+        <div class="flex items-center space-x-3">
+          <h3 class="text-sm font-bold text-gray-900 md:text-base lg:text-xl">
+            {{ title }}
+          </h3>
+        </div>
+        <p class="w-full mt-1 text-xs text-gray-500 line-clamp-3 text md:text-sm">
+          {{ description }}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex justify-end w-full px-6 pb-3 space-x-6 text-sm md:text-base">
+      <NuxtLink
+        :to="`/g/user/task/${id}`"
+        class="flex items-center justify-between text-yellow-500 hover:text-yellow-600"
+      >
+        <Icon name="tabler:edit" class="mr-1" /> Edit
+      </NuxtLink>
+
+      <button
+        type="button"
+        class="flex items-center justify-between text-red-500 hover:text-red-700"
+      >
+        <Icon name="tabler:trash-x" class="mr-1" /> Delete
+      </button>
+    </div>
+  </div>
+</template>

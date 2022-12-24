@@ -46,10 +46,10 @@ const navMenus: Array<NavMenu> = [
 </script>
 
 <template>
-  <div>
-    <header class="bg-indigo-600">
-      <nav class="bg-gray-800">
-        <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+  <div class="sticky top-0">
+    <header class="bg-indigo-600 w-full">
+      <nav class="bg-gray-800 relative">
+        <div class="container mx-auto">
           <div class="relative flex items-center justify-between h-16">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <button
@@ -128,7 +128,7 @@ const navMenus: Array<NavMenu> = [
             </div>
 
             <div
-              class="relative inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+              class="relative inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6"
             >
               <div class="relative ml-3" v-if="auth.isLoggedIn()">
                 <div>
@@ -197,7 +197,11 @@ const navMenus: Array<NavMenu> = [
         </div>
 
         <TransitionExpand>
-          <div class="sm:hidden" id="mobile-menu" v-if="showNavMenu">
+          <div
+            class="sm:hidden absolute top-[100%] w-full left-0 bg-gray-800"
+            id="mobile-menu"
+            v-if="showNavMenu"
+          >
             <div
               class="px-2 pt-2 pb-3 space-y-1 text-gray-300 [&>a:hover]:bg-gray-900 [&>a:hover]:text-white"
             >

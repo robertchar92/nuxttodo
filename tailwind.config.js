@@ -9,6 +9,18 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    container: {
+      padding: {
+        DEFAULT: '10px',
+        sm: '10px',
+        md: '10px',
+        lg: '0',
+        xl: '0',
+        '2xl': '0',
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 }
