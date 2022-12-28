@@ -25,7 +25,9 @@ const props = defineProps<TaskCardProps>();
     <div class="flex items-center justify-between w-full py-4 px-6 space-x-6">
       <div class="flex-1">
         <div class="flex items-center space-x-3">
-          <h3 class="text-sm font-bold text-gray-900 md:text-base lg:text-xl">
+          <h3
+            class="text-sm font-bold text-gray-900 md:text-base lg:text-xl line-clamp-1"
+          >
             {{ title }}
           </h3>
         </div>
@@ -38,9 +40,9 @@ const props = defineProps<TaskCardProps>();
     <div class="flex justify-end w-full px-6 pb-3 space-x-6 text-sm md:text-base">
       <NuxtLink
         :to="`/g/user/task/${id}`"
-        class="flex items-center justify-between text-yellow-500 hover:text-yellow-600"
+        class="flex items-center justify-between text-green-500 hover:text-green-700"
       >
-        <Icon name="tabler:edit" class="mr-1" /> Edit
+        <Icon name="material-symbols:overview-outline" class="mr-1" /> Show
       </NuxtLink>
 
       <button
