@@ -143,16 +143,17 @@ const deleteTodoList = (id: number) => {
         <div class="w-full flex justify-start">
           <div class="w-full max-w-2xl">
             <ul class="p-0 w-full list-none text-sm md:text-lg" v-if="todoLists">
-              <TransitionSlide group tag="ul">
+              <TransitionSlide group>
                 <li
                   v-for="list in todoLists"
+                  :key="list.id"
                   class="py-4 px-4 border-b border-gray-300 last:border-b-0 flex justify-between items-center"
                 >
                   <div class="mr-2 flex items-center">
                     <button type="button" @click="deleteTodoList(list.id)">
                       <Icon
                         name="tabler:trash-x"
-                        class="text-2xl text-red-500 hover:text-red-700"
+                        class="text-lg text-red-500 hover:text-red-700"
                       />
                     </button>
                   </div>

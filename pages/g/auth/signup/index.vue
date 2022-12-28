@@ -25,18 +25,14 @@ const submitSignUp = async () => {
 <template>
   <div>
     <div>
-      <div
-        class="flex flex-col justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8"
-      >
+      <div class="flex flex-col justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-lg">
           <img
             class="w-auto h-12 mx-auto"
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="Your Company"
           />
-          <h2
-            class="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900"
-          >
+          <h2 class="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900">
             Sign Up
           </h2>
         </div>
@@ -45,9 +41,7 @@ const submitSignUp = async () => {
           <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
             <form @submit.prevent="submitSignUp" class="space-y-6">
               <div>
-                <label
-                  for="email"
-                  class="block text-sm font-medium text-gray-700"
+                <label for="email" class="block text-sm font-medium text-gray-700"
                   >Email address</label
                 >
                 <div class="mt-1">
@@ -64,9 +58,7 @@ const submitSignUp = async () => {
               </div>
 
               <div>
-                <label
-                  for="password"
-                  class="block text-sm font-medium text-gray-700"
+                <label for="password" class="block text-sm font-medium text-gray-700"
                   >Password</label
                 >
                 <div class="mt-1">
@@ -108,9 +100,7 @@ const submitSignUp = async () => {
                   <div class="w-full border-t border-gray-300"></div>
                 </div>
                 <div class="relative flex justify-center text-sm">
-                  <span class="px-2 text-gray-500 bg-white"
-                    >Or continue with</span
-                  >
+                  <span class="px-2 text-gray-500 bg-white">Or continue with</span>
                 </div>
               </div>
 

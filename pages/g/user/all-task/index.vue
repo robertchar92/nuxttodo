@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { useTask } from "@/stores/task";
+const task = useTask();
+
+const { data: taskLists, count } = await task.findAllTask(null);
+
 definePageMeta({
   layout: "guest-default",
 });
@@ -10,109 +15,23 @@ definePageMeta({
       <div class="w-full">
         <GuestPageTaskHeading title="All Task" />
 
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <TransitionSlide
+          group
+          v-if="taskLists"
+          class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        >
           <GuestTaskCard
-            :id="1"
-            title="Task"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="complete"
+            v-for="task in taskLists"
+            :key="task.id"
+            :id="task.id"
+            :title="task.name"
+            :description="task.description"
+            :status="task.status"
           />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
+        </TransitionSlide>
+
+        <div v-else class="w-full text-center py-4 text-xl font-bold">
+          Create New Task Now.
         </div>
       </div>
 
