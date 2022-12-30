@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { useTask } from "@/stores/task";
+import dayjs from "dayjs";
 const task = useTask();
 
-const { data: taskLists, count } = await task.findAllTask(null);
+const { data: taskLists, pending } = await useLazyAsyncData("get_task", async () => {
+  const { data } = await task.findAllTask(0, 12, {});
+
+  return data;
+});
 
 definePageMeta({
   layout: "guest-default",
@@ -27,6 +31,7 @@ definePageMeta({
             :title="task.name"
             :description="task.description"
             :status="task.status"
+            :date="dayjs(task.created_at).format('ddd, DD MMM YYYY')"
           />
         </TransitionSlide>
 

@@ -40,3 +40,7 @@ npm run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+
+
+supabase db diff --use-migra fix_tasks -f fix_tasks

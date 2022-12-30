@@ -23,6 +23,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.6",
     "click-outside-vue3": "^4.0.1",
+    "dayjs": "^1.11.7",
     "maz-ui": "^3.6.4"
   }
 }

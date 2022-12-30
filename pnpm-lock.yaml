@@ -11,6 +11,7 @@ specifiers:
   '@vueuse/core': ^9.8.2
   '@vueuse/nuxt': ^9.8.2
   click-outside-vue3: ^4.0.1
+  dayjs: ^1.11.7
   maz-ui: ^3.6.4
   nuxt: 3.0.0
   nuxt-icon: ^0.1.8
@@ -19,7 +20,8 @@ specifiers:
 dependencies:
   '@pinia/nuxt': 0.4.6
   click-outside-vue3: 4.0.1
-  maz-ui: 3.6.4
+  dayjs: 1.11.7
+  maz-ui: 3.6.4_dayjs@1.11.7
 
 devDependencies:
   '@morev/vue-transitions': 2.3.5
@@ -2071,7 +2073,6 @@ packages:
 
   /dayjs/1.11.7:
     resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
-    dev: true
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -3546,7 +3547,7 @@ packages:
       semver: 6.3.0
     dev: true
 
-  /maz-ui/3.6.4:
+  /maz-ui/3.6.4_dayjs@1.11.7:
     resolution: {integrity: sha512-+5n7FiiQVIZFbPmq77/RrPkWMNBNfcV/nuXvy9ddfndmJINo6euwAg3qdzLUOeX40Rg+GnIBd2wM4FXvKrlTKA==}
     engines: {node: '>= 6.0.0', npm: '>= 3.0.0'}
     peerDependencies:
@@ -3567,6 +3568,8 @@ packages:
         optional: true
       vue-router:
         optional: true
+    dependencies:
+      dayjs: 1.11.7
     dev: false
 
   /mdn-data/2.0.14:

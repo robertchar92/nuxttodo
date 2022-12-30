@@ -6,23 +6,28 @@ interface TaskCardProps {
   title?: string;
   description?: string;
   status?: string;
+  date?: string;
 }
 
 const props = defineProps<TaskCardProps>();
 </script>
 
 <template>
-  <div class="col-span-1 bg-white rounded-lg shadow flex flex-col">
-    <div class="w-full px-6 pt-3">
-      <MazBadge
-        :color="status === 'COMPLETE' ? 'success' : 'warning'"
-        rounded-size="full"
-        size="0.8rem"
-        >{{ status }}</MazBadge
-      >
+  <div class="col-span-1 bg-white rounded-lg shadow flex flex-col min-h-[12.5rem]">
+    <div class="w-full px-6 pt-3 flex justify-between items-center">
+      <div class="">
+        <MazBadge
+          :color="status === 'COMPLETE' ? 'success' : 'warning'"
+          rounded-size="full"
+          size="0.8rem"
+          >{{ status }}</MazBadge
+        >
+      </div>
+
+      <div class="text-gray-400 text-sm">{{ date }}</div>
     </div>
 
-    <div class="flex items-center justify-between w-full py-4 px-6 space-x-6">
+    <div class="flex flex-1 justify-between w-full py-4 px-6 space-x-6">
       <div class="flex-1">
         <div class="flex items-center space-x-3">
           <h3

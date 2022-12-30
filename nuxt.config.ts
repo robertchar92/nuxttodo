@@ -34,4 +34,7 @@ export default defineNuxtConfig({
     transpile: ["maz-ui"],
   },
   plugins: ["@/plugins/showToast.client.ts"],
+  imports: {
+    dirs: ["stores"],
+  },
 });

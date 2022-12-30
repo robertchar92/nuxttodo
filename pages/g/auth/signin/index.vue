@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useAuth } from "@/stores/auth";
 const auth = useAuth();
 const input = reactive({
   email: "",

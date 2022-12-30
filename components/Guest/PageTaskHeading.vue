@@ -4,7 +4,13 @@ import MazDialog from "maz-ui/components/MazDialog";
 import MazInput from "maz-ui/components/MazInput";
 import MazTextarea from "maz-ui/components/MazTextarea";
 const openCreateDialog = ref(false);
-const input = reactive({
+
+interface InputTask {
+  title: string;
+  description: string;
+}
+
+const input: InputTask = reactive({
   title: "",
   description: "",
 });
@@ -14,14 +20,35 @@ const toggleCreateDialog = () => {
   document.documentElement.classList.remove("--backdrop-present");
 };
 
-const handleCreateTask = () => {
-  openCreateDialog.value = false;
-};
-
 interface PageTaskHeading {
   title?: string;
 }
 const props = defineProps<PageTaskHeading>();
+
+const { $showToast } = useNuxtApp();
+
+const task = useTask();
+const auth = useAuth();
+
+const handleCreateTask = async () => {
+  try {
+    await task.createTask({
+      // @ts-ignore: Object is possibly 'null'.
+      user_id: auth.user.id,
+      name: input.title,
+      description: input.description,
+      status: task.Status.ongoing,
+    });
+    input.title = "";
+    input.description = "";
+    refreshNuxtData("get_task");
+    $showToast("Successfully add task!", "success", 2000);
+  } catch (error) {
+    $showToast(error.message, "error", 3000);
+  }
+
+  openCreateDialog.value = false;
+};
 </script>
 
 <template>
