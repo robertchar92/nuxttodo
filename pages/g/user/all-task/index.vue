@@ -1,11 +1,30 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 const task = useTask();
+const fetchName = ref("all_task");
 
-const { data: taskLists, pending } = await useLazyAsyncData("get_task", async () => {
-  const { data } = await task.findAllTask(0, 12, {});
+const pagination = ref({
+  limit: 12,
+  offset: 0,
+  total: 0,
+});
 
-  return data;
+const taskLists = ref();
+
+const { pending } = await useLazyAsyncData(fetchName.value, async () => {
+  const { data, count } = await task.findAllTask(
+    pagination.value.offset,
+    pagination.value.limit,
+    {},
+    "id",
+    false
+  );
+
+  taskLists.value = data;
+
+  if (count) {
+    pagination.value.total = count;
+  }
 });
 
 definePageMeta({
@@ -16,8 +35,8 @@ definePageMeta({
 <template>
   <div>
     <div class="container mx-auto py-10">
-      <div class="w-full">
-        <GuestPageTaskHeading title="All Task" />
+      <div class="w-full" v-if="!pending">
+        <GuestPageTaskHeading title="All Task" :refresh_name="fetchName" />
 
         <TransitionSlide
           group
@@ -35,12 +54,15 @@ definePageMeta({
           />
         </TransitionSlide>
 
-        <div v-else class="w-full text-center py-4 text-xl font-bold">
+        <div
+          v-else
+          class="w-full text-center py-4 text-xl font-bold min-h-[80vh] items-center"
+        >
           Create New Task Now.
         </div>
       </div>
 
-      <GuestPagination />
+      <GuestPagination :pagination="pagination" v-if="!pending" />
     </div>
   </div>
 </template>

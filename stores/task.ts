@@ -9,14 +9,16 @@ export const useTask = definePiniaStore("task", () => {
   async function findAllTask(
     offset: number,
     limit: number,
-    filter: Database | {}
+    filter: Database | {},
+    sort: string,
+    asc: boolean
   ) {
     const { data, error } = await client
       .from("tasks")
       .select()
-      .range(offset, offset + limit)
-      .order("id", { ascending: false })
-      .match(filter);
+      .match(filter)
+      .range(offset, offset + limit - 1)
+      .order(sort, { ascending: asc });
 
     if (error) throw error;
 

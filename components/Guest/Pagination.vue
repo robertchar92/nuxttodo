@@ -1,10 +1,35 @@
+<script setup lang="ts">
+import { PropType } from "vue";
+interface Pagination {
+  limit: number;
+  offset: number;
+  total: number;
+}
+
+const props = defineProps({
+  pagination: {
+    type: Object as PropType<Pagination>,
+    required: true,
+  },
+});
+
+const totalPages = ref(Math.ceil(props.pagination.total / props.pagination.limit));
+const currentPage = ref(1);
+</script>
+
 <template>
-  <div class="w-full mt-10">
-    <nav class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0">
+  <div
+    class="w-full mt-10 sticky md:relative bottom-0 md:bottom-auto bg-white"
+    v-if="totalPages > 0"
+  >
+    <nav
+      class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 pb-4"
+    >
       <div class="-mt-px flex w-0 flex-1">
-        <a
+        <div
+          v-if="currentPage != 1"
           href="#"
-          class="inline-flex items-center border-t-2 border-transparent pt-4 pr-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          class="inline-flex items-center border-t-2 border-transparent pt-4 pr-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer"
         >
           <!-- Heroicon name: mini/arrow-long-left -->
           <svg
@@ -21,50 +46,28 @@
             />
           </svg>
           Previous
-        </a>
+        </div>
       </div>
       <div class="hidden md:-mt-px md:flex">
-        <a
+        <div
+          v-for="i in totalPages"
+          :key="i"
           href="#"
-          class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-          >1</a
+          class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium cursor-pointer"
+          :class="
+            currentPage == i
+              ? 'border-blue-500 text-gray-700'
+              : 'hover:border-gray-300 hover:text-gray-700 text-gray-500'
+          "
         >
-        <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-        <a
-          href="#"
-          class="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600"
-          aria-current="page"
-          >2</a
-        >
-        <a
-          href="#"
-          class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-          >3</a
-        >
-        <span
-          class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500"
-          >...</span
-        >
-        <a
-          href="#"
-          class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-          >8</a
-        >
-        <a
-          href="#"
-          class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-          >9</a
-        >
-        <a
-          href="#"
-          class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-          >10</a
-        >
+          {{ i }}
+        </div>
       </div>
       <div class="-mt-px flex w-0 flex-1 justify-end">
-        <a
+        <div
+          v-if="currentPage != totalPages"
           href="#"
-          class="inline-flex items-center border-t-2 border-transparent pt-4 pl-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+          class="inline-flex items-center border-t-2 border-transparent pt-4 pl-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer"
         >
           Next
           <!-- Heroicon name: mini/arrow-long-right -->
@@ -81,7 +84,7 @@
               clip-rule="evenodd"
             />
           </svg>
-        </a>
+        </div>
       </div>
     </nav>
   </div>

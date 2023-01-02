@@ -11,7 +11,6 @@ const submitSignUp = async () => {
 
   try {
     await auth.signUp(input.email, input.password);
-    await auth.signOut();
     $showToast("Sign Up is successfull!", "success", 5000);
     input.email = "";
     input.password = "";

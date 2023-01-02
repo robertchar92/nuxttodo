@@ -22,6 +22,7 @@ const toggleCreateDialog = () => {
 
 interface PageTaskHeading {
   title?: string;
+  refresh_name?: string;
 }
 const props = defineProps<PageTaskHeading>();
 
@@ -34,20 +35,24 @@ const handleCreateTask = async () => {
   try {
     await task.createTask({
       // @ts-ignore: Object is possibly 'null'.
-      user_id: auth.user.id,
+      user_id: auth.userData.id,
       name: input.title,
       description: input.description,
       status: task.Status.ongoing,
     });
     input.title = "";
     input.description = "";
-    refreshNuxtData("get_task");
+
+    if (props.refresh_name) {
+      refreshNuxtData(props.refresh_name);
+    }
+
     $showToast("Successfully add task!", "success", 2000);
   } catch (error) {
     $showToast(error.message, "error", 3000);
   }
 
-  openCreateDialog.value = false;
+  toggleCreateDialog();
 };
 </script>
 
@@ -55,7 +60,9 @@ const handleCreateTask = async () => {
   <div
     class="border-b border-gray-200 pb-5 mb-10 sm:flex sm:items-center sm:justify-between"
   >
-    <h1 class="text-lg font-medium leading-6 text-gray-900">{{ title }}</h1>
+    <h1 class="text-lg md:text-2xl font-bold leading-6 text-gray-900">
+      {{ title }}
+    </h1>
     <div class="mt-3 sm:mt-0 sm:ml-4">
       <button
         @click="toggleCreateDialog"

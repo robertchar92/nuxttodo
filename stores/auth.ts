@@ -2,16 +2,16 @@ import { skipHydrate } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
 
 export const useAuth = definePiniaStore("auth", () => {
-  const user = useLocalStorage("user", null);
+  const userData = useLocalStorage("user", null);
   const supabase = useSupabaseClient();
   const router = useRouter();
 
   supabase.auth.onAuthStateChange((e, session) => {
-    user.value = session?.user || null;
+    userData.value = session?.user || null;
   });
 
   async function signUp(email, password, ...metadata) {
-    const { user: u, error } = await supabase.auth.signUp(
+    const { data: u, error } = await supabase.auth.signUp(
       {
         email,
         password,
@@ -23,16 +23,20 @@ export const useAuth = definePiniaStore("auth", () => {
 
     if (error) throw error;
 
+    await supabase.auth.signOut();
+
     return u;
   }
 
   async function signIn(email, password) {
-    const { user: u, error } = await supabase.auth.signInWithPassword({
+    const { data: u, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) throw error;
+
+    userData.value = u.user;
 
     return u;
   }
@@ -46,8 +50,14 @@ export const useAuth = definePiniaStore("auth", () => {
   }
 
   function isLoggedIn() {
-    return !!user.value;
+    return !!userData.value;
   }
 
-  return { user: skipHydrate(user), signIn, signUp, signOut, isLoggedIn };
+  return {
+    userData: skipHydrate(userData),
+    signIn,
+    signUp,
+    signOut,
+    isLoggedIn,
+  };
 });

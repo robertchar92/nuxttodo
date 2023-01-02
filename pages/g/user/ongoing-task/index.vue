@@ -1,4 +1,10 @@
 <script setup lang="ts">
+const pagination = ref({
+  limit: 12,
+  offset: 0,
+  total: 0,
+});
+
 definePageMeta({
   layout: "guest-default",
 });
@@ -26,7 +32,7 @@ definePageMeta({
         </div>
       </div>
 
-      <GuestPagination />
+      <GuestPagination :pagination="pagination" />
     </div>
   </div>
 </template>
