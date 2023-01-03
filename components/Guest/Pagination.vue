@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PropType } from "vue";
+const router = useRouter();
 interface Pagination {
   limit: number;
   offset: number;
@@ -15,12 +16,27 @@ const props = defineProps({
 
 const totalPages = ref(Math.ceil(props.pagination.total / props.pagination.limit));
 const currentPage = ref(1);
+
+const changePage = (page: number) => {
+  currentPage.value = page;
+  router.push({ query: { page: page - 1 } });
+};
+
+const nextPage = () => {
+  currentPage.value = currentPage.value + 1;
+  router.push({ query: { page: currentPage.value - 1 } });
+};
+
+const prevPage = () => {
+  currentPage.value = currentPage.value - 1;
+  router.push({ query: { page: currentPage.value + 1 } });
+};
 </script>
 
 <template>
   <div
     class="w-full mt-10 sticky md:relative bottom-0 md:bottom-auto bg-white"
-    v-if="totalPages > 0"
+    v-if="totalPages > 1"
   >
     <nav
       class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 pb-4"
@@ -28,7 +44,7 @@ const currentPage = ref(1);
       <div class="-mt-px flex w-0 flex-1">
         <div
           v-if="currentPage != 1"
-          href="#"
+          @click="prevPage"
           class="inline-flex items-center border-t-2 border-transparent pt-4 pr-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer"
         >
           <!-- Heroicon name: mini/arrow-long-left -->
@@ -59,6 +75,7 @@ const currentPage = ref(1);
               ? 'border-blue-500 text-gray-700'
               : 'hover:border-gray-300 hover:text-gray-700 text-gray-500'
           "
+          @click="changePage(i)"
         >
           {{ i }}
         </div>
@@ -66,7 +83,7 @@ const currentPage = ref(1);
       <div class="-mt-px flex w-0 flex-1 justify-end">
         <div
           v-if="currentPage != totalPages"
-          href="#"
+          @click="nextPage"
           class="inline-flex items-center border-t-2 border-transparent pt-4 pl-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer"
         >
           Next

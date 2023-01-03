@@ -1,4 +1,5 @@
 import { Database } from "lib/database.types";
+import dayjs from "dayjs";
 export const useTask = definePiniaStore("task", () => {
   const client = useSupabaseClient<Database>();
   const Status = ref({
@@ -18,6 +19,7 @@ export const useTask = definePiniaStore("task", () => {
       .select()
       .match(filter)
       .range(offset, offset + limit - 1)
+      .filter("deleted_at", "is", "NULL")
       .order(sort, { ascending: asc });
 
     if (error) throw error;
@@ -25,7 +27,8 @@ export const useTask = definePiniaStore("task", () => {
     const { count, error: errCount } = await client
       .from("tasks")
       .select("*", { count: "exact", head: true })
-      .match(filter);
+      .match(filter)
+      .filter("deleted_at", "is", "NULL");
 
     if (errCount) throw errCount;
 
@@ -40,5 +43,18 @@ export const useTask = definePiniaStore("task", () => {
     return error;
   }
 
-  return { findAllTask, createTask, Status };
+  async function softDeleteTask(id: number) {
+    const { error } = await client
+      .from("tasks")
+      .update({
+        deleted_at: dayjs(Date.now()).format("YYYY-MM-DD HH:MM:ss"),
+      })
+      .eq("id", id);
+
+    if (error) throw error;
+
+    return error;
+  }
+
+  return { findAllTask, createTask, softDeleteTask, Status };
 });

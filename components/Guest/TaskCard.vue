@@ -51,6 +51,7 @@ const props = defineProps<TaskCardProps>();
       </NuxtLink>
 
       <button
+        @click="$emit('openDelDialog', id, title)"
         type="button"
         class="flex items-center justify-between text-red-500 hover:text-red-700"
       >
