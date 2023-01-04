@@ -32,10 +32,18 @@ const { pending, refresh } = await useLazyAsyncData(fetchName.value, async () =>
 watch(
   () => route.query.page,
   () => {
-    pagination.value.offset = pagination.value.limit * Number(route.query.page);
+    if (route.query.page) {
+      pagination.value.offset = pagination.value.limit * Number(route.query.page);
+    } else {
+      pagination.value.offset = 0;
+    }
     refresh();
   }
 );
+
+const triggerDeleteDialog = (id: number, title: string) => {
+  deleteDialog.value.openDeleteDialog(id, title);
+};
 
 definePageMeta({
   layout: "guest-default",
@@ -51,6 +59,8 @@ definePageMeta({
         <div v-if="taskLists" class="w-full min-h-[71vh]">
           <LazyTransitionFade
             group
+            tag="div"
+            v-if="taskLists"
             class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             <GuestTaskCard
@@ -61,7 +71,7 @@ definePageMeta({
               :description="task.description"
               :status="task.status"
               :date="dayjs(task.created_at).format('ddd, DD MMM YYYY')"
-              @open-del-dialog="deleteDialog.openDeleteDialog"
+              @open-del-dialog="triggerDeleteDialog"
             />
           </LazyTransitionFade>
         </div>

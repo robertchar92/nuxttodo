@@ -7,6 +7,7 @@ useHead({
 
 <template>
   <div>
+    <NuxtLoadingIndicator />
     <GuestHeader />
     <slot />
   </div>

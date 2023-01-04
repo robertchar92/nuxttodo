@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PropType } from "vue";
+const route = useRoute();
 const router = useRouter();
 interface Pagination {
   limit: number;
@@ -13,6 +14,15 @@ const props = defineProps({
     required: true,
   },
 });
+
+watch(
+  () => route.query.page,
+  () => {
+    if (!route.query.page) {
+      currentPage.value = 1;
+    }
+  }
+);
 
 const totalPages = ref(Math.ceil(props.pagination.total / props.pagination.limit));
 const currentPage = ref(1);

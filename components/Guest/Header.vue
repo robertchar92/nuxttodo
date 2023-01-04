@@ -119,7 +119,9 @@ const navMenus: Array<NavMenu> = [
                     :key="nav.path"
                     :to="nav.path"
                     class="px-3 py-2 text-sm font-medium rounded-md"
-                    :class="route.path === nav.path ? 'bg-gray-900 text-white' : ''"
+                    :class="
+                      route.path === nav.path ? 'bg-gray-900 text-white' : ''
+                    "
                   >
                     {{ nav.name }}
                   </NuxtLink>
@@ -165,7 +167,8 @@ const navMenus: Array<NavMenu> = [
                       role="menuitem"
                       tabindex="-1"
                       id="user-menu-item-0"
-                      >Your Profile <Icon name="carbon:user-profile" class="text-black"
+                      >Your Profile
+                      <Icon name="carbon:user-profile" class="text-black"
                     /></a>
 
                     <div
@@ -189,7 +192,10 @@ const navMenus: Array<NavMenu> = [
 
                 <MazBtn to="/g/auth/signup" size="sm" color="primary">
                   Sign Up
-                  <Icon name="material-symbols:assignment-outline-sharp" class="ml-2" />
+                  <Icon
+                    name="material-symbols:assignment-outline-sharp"
+                    class="ml-2"
+                  />
                 </MazBtn>
               </div>
             </div>
