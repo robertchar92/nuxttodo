@@ -40,6 +40,7 @@ const rules = computed(() => {
 const v$ = useVuelidate(rules, input);
 
 const toggleCreateDialog = () => {
+  v$.value.$reset();
   openCreateDialog.value = !openCreateDialog.value;
   document.documentElement.classList.remove("--backdrop-present");
 };

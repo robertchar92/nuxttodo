@@ -56,7 +56,7 @@ definePageMeta({
       <div class="w-full">
         <GuestPageTaskHeading title="All Task" :refresh_name="fetchName" />
 
-        <div v-if="taskLists" class="w-full min-h-[71vh]">
+        <div v-if="pagination.total > 0" class="w-full min-h-[71vh]">
           <LazyTransitionFade
             group
             tag="div"

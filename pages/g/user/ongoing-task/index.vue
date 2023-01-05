@@ -1,8 +1,52 @@
 <script setup lang="ts">
+import dayjs from "dayjs";
+const route = useRoute();
+const task = useTask();
+const fetchName = ref("ongoing_task");
+const deleteDialog = ref();
+
 const pagination = ref({
   limit: 12,
   offset: 0,
   total: 0,
+});
+
+const taskLists = ref();
+
+const { pending, refresh } = await useLazyAsyncData(fetchName.value, async () => {
+  const { data, count } = await task.findAllTask(
+    pagination.value.offset,
+    pagination.value.limit,
+    { status: task.Status.ongoing },
+    "id",
+    false
+  );
+
+  taskLists.value = data;
+
+  if (count) {
+    pagination.value.total = count;
+  }
+});
+
+watch(
+  () => route.query.page,
+  () => {
+    if (route.query.page) {
+      pagination.value.offset = pagination.value.limit * Number(route.query.page);
+    } else {
+      pagination.value.offset = 0;
+    }
+    refresh();
+  }
+);
+
+const triggerDeleteDialog = (id: number, title: string) => {
+  deleteDialog.value.openDeleteDialog(id, title);
+};
+
+definePageMeta({
+  layout: "guest-default",
 });
 
 definePageMeta({
@@ -14,25 +58,41 @@ definePageMeta({
   <div>
     <div class="container mx-auto py-10">
       <div class="w-full">
-        <GuestPageTaskHeading title="Ongoing Task" />
+        <GuestPageTaskHeading title="Ongoing Task" :refresh_name="fetchName" />
 
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <GuestTaskCard
-            :id="1"
-            title="Task"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="complete"
-          />
-          <GuestTaskCard
-            :id="2"
-            title="Task 2"
-            description="2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, similique. Consectetur iste eum aperiam assumenda? Veritatis nulla quod nemo fugit."
-            status="ongoing"
-          />
+        <div v-if="pagination.total > 0" class="w-full min-h-[71vh]">
+          <LazyTransitionFade
+            group
+            tag="div"
+            v-if="taskLists"
+            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          >
+            <GuestTaskCard
+              v-for="task in taskLists"
+              :key="task.id"
+              :id="task.id"
+              :title="task.name"
+              :description="task.description"
+              :status="task.status"
+              :date="dayjs(task.created_at).format('ddd, DD MMM YYYY')"
+              @open-del-dialog="triggerDeleteDialog"
+            />
+          </LazyTransitionFade>
         </div>
-      </div>
 
-      <GuestPagination :pagination="pagination" />
+        <div v-else-if="pending" class="w-full min-h-[71vh]">Skeleton</div>
+
+        <div
+          v-else
+          class="w-full py-4 text-xl font-bold min-h-[80vh] items-center flex justify-center"
+        >
+          Create New Task Now.
+        </div>
+
+        <GuestPagination :pagination="pagination" v-if="pagination.total > 0" />
+      </div>
     </div>
+
+    <GuestDeleteTaskDialog ref="deleteDialog" :refresh_name="fetchName" />
   </div>
 </template>
