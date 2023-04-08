@@ -20,6 +20,7 @@ const props = defineProps<TaskCardProps>();
           :color="status === 'COMPLETE' ? 'success' : 'warning'"
           rounded-size="full"
           size="0.8rem"
+          class="!text-white"
           >{{ status }}</MazBadge
         >
       </div>
